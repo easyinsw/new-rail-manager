@@ -1,0 +1,126 @@
+20:37:43.323 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[Apple iPhone XS Max 移动联通电信4G手机 ]同步失败
+20:37:43.332 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[兰蔻粉水清滢柔肤水400ml 爽肤水女保湿舒缓滋润嫩肤]同步失败
+20:37:43.339 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[【Dole都乐】菲律宾都乐非转基因木瓜1只 单只约410g]同步失败
+20:37:43.345 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[阿迪达斯官方 adidas 三叶草 NITE JOGGER 男子经典鞋BD7956]同步失败
+20:37:43.352 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[【Dole都乐】比利时Truval啤梨12只 进口水果新鲜梨 单果120g左右]同步失败
+20:37:43.359 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[旗舰店官网 自拍神器 梵高定制]同步失败
+20:37:43.365 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[餐厅装饰画现代简约饭厅挂画墙面壁画好好吃饭]同步失败
+20:37:43.370 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[阴阳师寮办秘制 月见和菓子 184克]同步失败
+20:37:43.375 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[旺仔牛奶]同步失败
+20:37:43.382 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[测试商品A]同步失败
+20:37:43.387 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[测试商品B]同步失败
+20:37:43.390 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[测试商品C]同步失败
+20:39:47.050 [main] ERROR o.s.b.SpringApplication - [reportFailure,819] - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:761)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:748)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at com.yinsw.search.YinswSearchApplication.main(YinswSearchApplication.java:23)
+Caused by: feign.RetryableException: yinsw-shop executing GET http://yinsw-shop/prod/count
+	at feign.FeignException.errorExecuting(FeignException.java:268)
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:129)
+	at feign.SynchronousMethodHandler.invoke(SynchronousMethodHandler.java:89)
+	at com.alibaba.cloud.sentinel.feign.SentinelInvocationHandler.invoke(SentinelInvocationHandler.java:109)
+	at org.springframework.cloud.openfeign.FeignCachingInvocationHandlerFactory$1.proceed(FeignCachingInvocationHandlerFactory.java:66)
+	at org.springframework.cache.interceptor.CacheInterceptor.lambda$invoke$0(CacheInterceptor.java:54)
+	at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:351)
+	at org.springframework.cache.interceptor.CacheInterceptor.invoke(CacheInterceptor.java:64)
+	at org.springframework.cloud.openfeign.FeignCachingInvocationHandlerFactory.lambda$create$1(FeignCachingInvocationHandlerFactory.java:53)
+	at com.sun.proxy.$Proxy131.count(Unknown Source)
+	at com.yinsw.search.init.ProdInit.init(ProdInit.java:42)
+	at com.yinsw.search.config.RunAfterConfig.run(RunAfterConfig.java:26)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:758)
+	... 5 common frames omitted
+Caused by: java.net.UnknownHostException: yinsw-shop
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:175)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:242)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:339)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:357)
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1202)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1138)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1032)
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:966)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1546)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at feign.Client$Default.convertResponse(Client.java:109)
+	at feign.Client$Default.execute(Client.java:105)
+	at org.springframework.cloud.openfeign.loadbalancer.LoadBalancerUtils.executeWithLoadBalancerLifecycleProcessing(LoadBalancerUtils.java:56)
+	at org.springframework.cloud.openfeign.loadbalancer.RetryableFeignBlockingLoadBalancerClient.lambda$execute$2(RetryableFeignBlockingLoadBalancerClient.java:166)
+	at org.springframework.retry.support.RetryTemplate.doExecute(RetryTemplate.java:329)
+	at org.springframework.retry.support.RetryTemplate.execute(RetryTemplate.java:225)
+	at org.springframework.cloud.openfeign.loadbalancer.RetryableFeignBlockingLoadBalancerClient.execute(RetryableFeignBlockingLoadBalancerClient.java:113)
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:119)
+	... 16 common frames omitted
+20:41:48.380 [main] ERROR o.s.b.SpringApplication - [reportFailure,819] - Application run failed
+java.lang.IllegalStateException: Failed to execute ApplicationRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:761)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:748)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:309)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
+	at com.yinsw.search.YinswSearchApplication.main(YinswSearchApplication.java:23)
+Caused by: feign.RetryableException: yinsw-shop executing GET http://yinsw-shop/prod/count
+	at feign.FeignException.errorExecuting(FeignException.java:268)
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:129)
+	at feign.SynchronousMethodHandler.invoke(SynchronousMethodHandler.java:89)
+	at com.alibaba.cloud.sentinel.feign.SentinelInvocationHandler.invoke(SentinelInvocationHandler.java:109)
+	at org.springframework.cloud.openfeign.FeignCachingInvocationHandlerFactory$1.proceed(FeignCachingInvocationHandlerFactory.java:66)
+	at org.springframework.cache.interceptor.CacheInterceptor.lambda$invoke$0(CacheInterceptor.java:54)
+	at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:351)
+	at org.springframework.cache.interceptor.CacheInterceptor.invoke(CacheInterceptor.java:64)
+	at org.springframework.cloud.openfeign.FeignCachingInvocationHandlerFactory.lambda$create$1(FeignCachingInvocationHandlerFactory.java:53)
+	at com.sun.proxy.$Proxy131.count(Unknown Source)
+	at com.yinsw.search.init.ProdInit.init(ProdInit.java:42)
+	at com.yinsw.search.config.RunAfterConfig.run(RunAfterConfig.java:26)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:758)
+	... 5 common frames omitted
+Caused by: java.net.UnknownHostException: yinsw-shop
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:184)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at sun.net.NetworkClient.doConnect(NetworkClient.java:175)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:463)
+	at sun.net.www.http.HttpClient.openServer(HttpClient.java:558)
+	at sun.net.www.http.HttpClient.<init>(HttpClient.java:242)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:339)
+	at sun.net.www.http.HttpClient.New(HttpClient.java:357)
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1202)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1138)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1032)
+	at sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:966)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1546)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1474)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:480)
+	at feign.Client$Default.convertResponse(Client.java:109)
+	at feign.Client$Default.execute(Client.java:105)
+	at org.springframework.cloud.openfeign.loadbalancer.LoadBalancerUtils.executeWithLoadBalancerLifecycleProcessing(LoadBalancerUtils.java:56)
+	at org.springframework.cloud.openfeign.loadbalancer.RetryableFeignBlockingLoadBalancerClient.lambda$execute$2(RetryableFeignBlockingLoadBalancerClient.java:166)
+	at org.springframework.retry.support.RetryTemplate.doExecute(RetryTemplate.java:329)
+	at org.springframework.retry.support.RetryTemplate.execute(RetryTemplate.java:225)
+	at org.springframework.cloud.openfeign.loadbalancer.RetryableFeignBlockingLoadBalancerClient.execute(RetryableFeignBlockingLoadBalancerClient.java:113)
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:119)
+	... 16 common frames omitted
+20:42:11.065 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[Apple iPhone XS Max 移动联通电信4G手机 ]同步失败
+20:42:11.070 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[兰蔻粉水清滢柔肤水400ml 爽肤水女保湿舒缓滋润嫩肤]同步失败
+20:42:11.074 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[【Dole都乐】菲律宾都乐非转基因木瓜1只 单只约410g]同步失败
+20:42:11.078 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[阿迪达斯官方 adidas 三叶草 NITE JOGGER 男子经典鞋BD7956]同步失败
+20:42:11.083 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[【Dole都乐】比利时Truval啤梨12只 进口水果新鲜梨 单果120g左右]同步失败
+20:42:11.090 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[旗舰店官网 自拍神器 梵高定制]同步失败
+20:42:11.111 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[餐厅装饰画现代简约饭厅挂画墙面壁画好好吃饭]同步失败
+20:42:11.117 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[阴阳师寮办秘制 月见和菓子 184克]同步失败
+20:42:11.124 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[旺仔牛奶]同步失败
+20:42:11.129 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[测试商品A]同步失败
+20:42:11.133 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[测试商品B]同步失败
+20:42:11.145 [main] ERROR c.y.s.init.ProdInit - [init,73] - 商品:[测试商品C]同步失败
+21:26:31.188 [AMQP Connection 127.0.0.1:5672] ERROR o.s.a.r.c.CachingConnectionFactory - [log,748] - Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=406, reply-text=PRECONDITION_FAILED - unknown delivery tag 1, class-id=60, method-id=80)
+21:42:29.971 [AMQP Connection 127.0.0.1:5672] ERROR o.s.a.r.c.CachingConnectionFactory - [log,748] - Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-code=406, reply-text=PRECONDITION_FAILED - unknown delivery tag 1, class-id=60, method-id=80)

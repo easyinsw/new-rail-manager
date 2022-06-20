@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.yinsw</groupId>
+        <artifactId>yinsw</artifactId>
+        <version>3.5.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>yinsw-common-log</module>
+        <module>yinsw-common-core</module>
+        <module>yinsw-common-redis</module>
+        <module>yinsw-common-swagger</module>
+        <module>yinsw-common-security</module>
+        <module>yinsw-common-datascope</module>
+		<module>yinsw-common-datasource</module>
+    </modules>
+
+    <artifactId>yinsw-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+	    yinsw-common通用模块
+    </description>
+
+    <distributionManagement>
+        <repository>
+            <id>printguy_hosted</id>
+            <url>http://139.224.206.80:8081/repository/printguy_hosted/</url>
+        </repository>
+    </distributionManagement>
+
+</project>

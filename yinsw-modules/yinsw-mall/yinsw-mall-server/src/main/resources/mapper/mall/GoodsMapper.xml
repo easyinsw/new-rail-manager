@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinsw.mall.mapper.GoodsMapper">
+
+    <resultMap type="Goods" id="GoodsResult">
+        <result property="goodsId"    column="goods_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsImg"    column="goods_img"    />
+        <result property="goodsPrice"    column="goods_price"    />
+        <result property="goodsStock"    column="goods_stock"    />
+    </resultMap>
+
+    <sql id="selectGoodsVo">
+        select goods_id, goods_name, goods_img, goods_price, goods_stock from tb_goods
+    </sql>
+
+    <select id="selectGoodsList" parameterType="Goods" resultMap="GoodsResult">
+        <include refid="selectGoodsVo"/>
+        <where>
+            <if test="goodsName != null  and goodsName != ''"> and goods_name like concat('%', #{goodsName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectGoodsByGoodsId" parameterType="Long" resultMap="GoodsResult">
+        <include refid="selectGoodsVo"/>
+        where goods_id = #{goodsId}
+    </select>
+
+    <select id="goodsList" resultMap="GoodsResult">
+        select goods_id, goods_name, goods_img, goods_price, goods_stock from tb_goods
+    </select>
+
+    <insert id="insertGoods" parameterType="Goods" useGeneratedKeys="true" keyProperty="goodsId">
+        insert into tb_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsName != null and goodsName != ''">goods_name,</if>
+            <if test="goodsImg != null and goodsImg != ''">goods_img,</if>
+            <if test="goodsPrice != null">goods_price,</if>
+            <if test="goodsStock != null">goods_stock,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsName != null and goodsName != ''">#{goodsName},</if>
+            <if test="goodsImg != null and goodsImg != ''">#{goodsImg},</if>
+            <if test="goodsPrice != null">#{goodsPrice},</if>
+            <if test="goodsStock != null">#{goodsStock},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGoods" parameterType="Goods">
+        update tb_goods
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodsName != null and goodsName != ''">goods_name = #{goodsName},</if>
+            <if test="goodsImg != null and goodsImg != ''">goods_img = #{goodsImg},</if>
+            <if test="goodsPrice != null">goods_price = #{goodsPrice},</if>
+            <if test="goodsStock != null">goods_stock = #{goodsStock},</if>
+        </trim>
+        where goods_id = #{goodsId}
+    </update>
+
+    <delete id="deleteGoodsByGoodsId" parameterType="Long">
+        delete from tb_goods where goods_id = #{goodsId}
+    </delete>
+
+    <delete id="deleteGoodsByGoodsIds" parameterType="String">
+        delete from tb_goods where goods_id in
+        <foreach item="goodsId" collection="array" open="(" separator="," close=")">
+            #{goodsId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yinsw.mall.mapper.EventMapper">
+
+    <resultMap type="Event" id="EventResult">
+        <result property="eventId"    column="event_id"    />
+        <result property="eventName"    column="event_name"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="description"    column="description"    />
+        <result property="status"    column="status"    />
+        <result property="eventImg"    column="event_img"    />
+        <result property="goodsId"    column="goods_id"    />
+        <result property="goodsName"    column="goods_name"    />
+        <result property="goodsImg"    column="goods_img"    />
+        <result property="goodsPrice"    column="goods_price"    />
+        <result property="goodsStock"    column="goods_stock"    />
+        <result property="middleId"    column="middle_id"    />
+        <result property="limitNum"    column="limit_num"    />
+        <result property="eventPrice"    column="event_price"    />
+    </resultMap>
+
+    <sql id="selectEventVo">
+        select event_id, event_name, start_time, end_time, description, status, event_img from tb_event
+    </sql>
+
+    <sql id="selectThree">
+        SELECT
+            tb_goods_event_middle.middle_id,
+            tb_goods_event_middle.goods_id,
+            tb_goods_event_middle.event_id,
+            tb_goods_event_middle.limit_num,
+            tb_goods_event_middle.event_price,
+            tb_goods.goods_name,
+            tb_goods.goods_img,
+            tb_goods.goods_price,
+            tb_goods.goods_stock,
+            tb_event.event_name,
+            tb_event.start_time,
+            tb_event.end_time,
+            tb_event.description,
+            tb_event.`status`,
+            tb_event.event_img
+        FROM
+            tb_goods_event_middle
+                LEFT JOIN tb_event ON tb_goods_event_middle.event_id = tb_event.event_id
+                LEFT JOIN tb_goods ON tb_goods.goods_id = tb_goods_event_middle.goods_id
+    </sql>
+
+    <select id="selectEventList" parameterType="Event" resultMap="EventResult">
+        <include refid="selectEventVo"/>
+        <where>
+            <if test="eventName != null  and eventName != ''"> and event_name like concat('%', #{eventName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectEventByEventId" parameterType="Long" resultMap="EventResult">
+        <include refid="selectThree"/>
+        where tb_goods_event_middle.event_id = #{eventId}
+    </select>
+
+    <insert id="insertEvent" parameterType="Event" useGeneratedKeys="true" keyProperty="eventId">
+        insert into tb_event
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="eventName != null and eventName != ''">event_name,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="status != null">status,</if>
+            <if test="eventImg != null and eventImg != ''">event_img,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="eventName != null and eventName != ''">#{eventName},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="status != null">#{status},</if>
+            <if test="eventImg != null and eventImg != ''">#{eventImg},</if>
+         </trim>
+    </insert>
+
+    <insert id="insertEvent2" parameterType="Event">
+        insert into tb_goods_event_middle(event_id,goods_id,limit_num,event_price)
+        values
+            <foreach collection="gList" item="g" separator="," index="index">
+                (#{event.eventId},#{g.goodsId},#{g.limitNum},#{g.eventPrice})
+            </foreach>
+    </insert>
+
+    <update id="updateEvent" parameterType="Event">
+        update tb_event
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="eventName != null and eventName != ''">event_name = #{eventName},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="eventImg != null and eventImg != ''">event_img = #{eventImg},</if>
+        </trim>
+        where event_id = #{eventId}
+    </update>
+
+    <delete id="deleteEventByEventId" parameterType="Long">
+        delete from tb_event where event_id = #{eventId}
+    </delete>
+
+    <delete id="deleteEventByEventIds" parameterType="String">
+        delete from tb_event where event_id in
+        <foreach item="eventId" collection="array" open="(" separator="," close=")">
+            #{eventId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteMiddleByEventId" parameterType="Long">
+        delete from tb_goods_event_middle where event_id = #{eventId}
+    </delete>
+
+    <delete id="deleteMiddleByEventIds">
+        delete from tb_goods_event_middle where event_id in
+        <foreach item="eventId" collection="array" open="(" separator="," close=")">
+            #{eventId}
+        </foreach>
+    </delete>
+</mapper>
